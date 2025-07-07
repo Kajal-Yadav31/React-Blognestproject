@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { AuthContext } from '../AuthProvider'
 
 const Login = () => {
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
 
-    const userData = {username, password}
+    const userData = {email, password}
     console.log('userData==>', userData);
 
     try{
@@ -38,33 +38,49 @@ const Login = () => {
 
   return (
     <>
-    <div className='container'>
-        <div className="row justify-content-center">
-            <div className="col-md-6 bg-light-dark p-5 rounded">
-                <h3 className='text-light text-center mb-4'>Login to our Portal</h3>
-                <form onSubmit={handleLogin}>
-                  <div className='mb-3'>
-                    <input type="text" className='form-control' placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
-                  </div>
-                    
-                    <div className='mb-3'>
-                    <input type="password" className='form-control ' placeholder='Set password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    
-                    {error && <div className='text-danger'>{error}</div> }
+     <section className="container d-flex flex-column vh-100" style={{ marginTop: "150px" }}>
+                    <div className="row align-items-center justify-content-center g-0 h-lg-100 py-8">
+                        <div className="col-lg-5 col-md-8 py-8 py-xl-0">
+                            <div className="card shadow">
+                                <div className="card-body p-6">
+                                    <div className="mb-4">
+                                        <h1 className="mb-1 fw-bold">Login to our Portal</h1>                                    
+                                    </div>
+                                    {/* Form */}
+                                    <form className="needs-validation" onSubmit={handleLogin}>
+                                        {/* email */}
+                                        <div className="mb-3">
+                                        <label htmlFor="email" className="form-label">
+                                            Email Address
+                                        </label>
+                                        <input type="email" className='form-control' placeholder='Email address' value={email} onChange={(e)=> setEmail(e.target.value)}/></div>
+                                                                
+                                        {/* Password */}
+                                        <div className="mb-3">
+                                            <label htmlFor="password" className="form-label">
+                                                Password
+                                            </label>
+                                            <input type="password" className='form-control ' placeholder='Set password' value={password} onChange={(e) => setPassword(e.target.value)} />
+                                       
+                                        </div>
+                                        
+                                        {error && <div className='text-danger'>{error}</div> }
 
-                    {loading ? (
-                      <button type='submit' className='btn btn-info d-block mx-auto' disabled><FontAwesomeIcon icon={faSpinner} spin /> Logging in...</button>
-                    ) : (
-                      <button type='submit' className='btn btn-info d-block mx-auto'>Login</button>
-                    )}
-                    
-                </form>
-            </div>
-        </div>
-    </div>
+                                        {loading ? (
+                                          <button type='submit' className='btn btn-info d-block mx-auto' disabled><FontAwesomeIcon icon={faSpinner} spin /> Logging in...</button>
+                                        ) : (
+                                          <button type='submit' className='btn btn-info d-block mx-auto'>Login</button>
+                                        )}
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
     </>
   )
 }
 
 export default Login
+
+

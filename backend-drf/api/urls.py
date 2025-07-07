@@ -9,6 +9,6 @@ urlpatterns = [
     path('register/', UserViews.RegisterView.as_view()),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+     path('profile/<user_id>/', UserViews.ProfileView.as_view(), name='user_profile'),
     path('protected-view/', UserViews.ProtectedView.as_view()),
 ]

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ProfileSerializer
 from rest_framework import generics
-from django.contrib.auth.models import User
+from accounts.models import User, Profile
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
@@ -18,3 +18,14 @@ class ProtectedView(APIView):
 
     def get(self, request):
         return Response({'message': f'Hello, {request.user.username}'})
+    
+class ProfileView(generics.RetrieveUpdateAPIView):
+    permission_classes = (AllowAny,)
+    serializer_class = ProfileSerializer
+
+    def get_object(self):
+        user_id = self.kwargs['user_id']
+
+        user = User.objects.get(id=user_id)
+        profile = Profile.objects.get(user=user)
+        return profile
