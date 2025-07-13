@@ -51,13 +51,13 @@ class PostDetailAPIView(generics.RetrieveAPIView):
         return post
         
 class LikePostAPIView(APIView):
+    permission_classes = [IsAuthenticated] 
     
     def post(self, request):
-        user_id = request.data['user_id']
+        user = request.user
         post_id = request.data['post_id']
-
-        user = User.objects.get(id=user_id)
         post = Post.objects.get(id=post_id)
+
 
         # Check if post has already been liked by this user
         if user in post.likes.all():
@@ -104,14 +104,13 @@ class PostCommentAPIView(APIView):
         # Return response back to the frontend
         return Response({"message": "Commented Sent"}, status=status.HTTP_201_CREATED)
  
+
 class BookmarkPostAPIView(APIView):
-    
+    permission_classes = [IsAuthenticated] 
     
     def post(self, request):
-        user_id = request.data['user_id']
+        user = request.user
         post_id = request.data['post_id']
-
-        user = User.objects.get(id=user_id)
         post = Post.objects.get(id=post_id)
 
         bookmark = Bookmark.objects.filter(post=post, user=user).first()
