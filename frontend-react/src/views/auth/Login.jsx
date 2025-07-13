@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
-import { AuthContext } from '../AuthProvider'
+import { AuthContext } from '../../utils/AuthProvider'
+import Button from './Button'
 
 const Login = () => {
   const [email, setEmail] = useState('')

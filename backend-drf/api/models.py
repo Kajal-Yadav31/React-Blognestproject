@@ -52,6 +52,12 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         if self.slug == "" or self.slug == None:
             self.slug = slugify(self.title) + "-" + shortuuid.uuid()[:2]
+        if not self.profile and self.user:
+            try:
+                self.profile = self.user.profile
+            except Profile.DoesNotExist:
+                pass 
+
         super(Post, self).save(*args, **kwargs)
     
     def comments(self):

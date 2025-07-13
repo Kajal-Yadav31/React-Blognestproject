@@ -5,6 +5,7 @@ from rest_framework import generics
 from accounts.models import User, Profile
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.exceptions import NotFound
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -25,7 +26,14 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         user_id = self.kwargs['user_id']
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise NotFound("User not found")
 
-        user = User.objects.get(id=user_id)
-        profile = Profile.objects.get(user=user)
+        try:
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            raise NotFound("Profile not found")
+
         return profile

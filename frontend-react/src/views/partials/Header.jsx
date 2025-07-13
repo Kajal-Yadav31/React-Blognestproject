@@ -1,8 +1,8 @@
 import {useContext} from 'react'
-import Button from './Button'
+import Button from '../auth/Button'
 import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../AuthProvider'
-import Logo from '../assets/image/logo.png'
+import { AuthContext } from '../../utils/AuthProvider'
+import Logo from '../../assets/image/logo.png'
 
 
 const Header = () => {
@@ -19,11 +19,11 @@ const Header = () => {
 
   return (
     <>
-       <header className="navbar-light bg-light navbar-sticky header-static">
+       <header className="navbar-light bg-light navbar-sticky header-static shadow-lg bg-body rounded">
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
                     <Link className="navbar-brand" to="/">
-                        <img className="navbar-brand-item dark-mode-item" src={Logo} style={{ width: "150px" , height:"50px"}} alt="logo" />
+                        <img className="navbar-brand-item dark-mode-item" src={Logo} style={{ width: "190px" , height:"55px"}} alt="logo" />
                     </Link>
                     <button className="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="h6 d-none d-sm-inline-block text-white">Menu</span>
@@ -33,9 +33,9 @@ const Header = () => {
                         <div className="nav mt-3 mt-lg-0 px-4 flex-nowrap align-items-center">
                             <div className="nav-item w-100">
                                 <form className="rounded position-relative">
-                                    <input className="form-control pe-5 bg-light" type="search" placeholder="Search Articles" aria-label="Search" />
-                                    <Link to={"/search/"} className="btn bg-transparent border-0 px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit">
-                                        <i className="bi bi-search fs-5"> </i>
+                                    <input className="form-control pe-5 border-4 text-info "  type="search" placeholder="Search Articles" aria-label="Search" />
+                                    <Link to={"/search/"} className="btn bg-transparent border-0 px-2 py-0 text-info position-absolute top-50 end-0 translate-middle-y" type="submit">
+                                        <i className="bi bi-search p-2 fs-5"> </i>
                                     </Link>
                                 </form>
                             </div>
@@ -46,11 +46,6 @@ const Header = () => {
                                     Home
                                 </Link>
                             </li>
-                            <li className="nav-item dropdown">
-                                <Link className="nav-link active" >
-                                    Category
-                                </Link>
-                            </li>
                            
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle active" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,27 +54,27 @@ const Header = () => {
                                 <ul className="dropdown-menu" aria-labelledby="pagesMenu">
                                     
                                     <li>
-                                        <Link className="dropdown-item" >
+                                        <Link className="dropdown-item" to="/posts/">
                                             <i className="bi bi-grid-fill"></i> Posts
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" >
+                                        <Link className="dropdown-item" to="/add-post/">
                                             <i className="fas fa-plus-circle"></i> Add Post
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" >
+                                        <Link className="dropdown-item" to="/comments/">
                                             <i className="bi bi-chat-left-quote-fill"></i> Comments
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" >
+                                        <Link className="dropdown-item" to="/notifications/">
                                             <i className="fas fa-bell"></i> Notifications
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" >
+                                        <Link className="dropdown-item" to="/profile/">
                                             <i className="fas fa-user-gear"></i> Profile
                                         </Link>
                                     </li>
@@ -88,15 +83,15 @@ const Header = () => {
                             <li className="nav-item">
                                 {isLoggedIn ? (
                                     <>
-                                        <Button text='Dashboard' class="btn-info" url="/dashboard"></Button>
+                                        <Button text="Dashboard" className="btn-info" url="/dashboard" />
                                         &nbsp;
-                                        <Link className='btn btn-outline-danger' onClick={handleLogout}>Logout</Link>
+                                        <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
                                     </>
                                 ) : (
                                     <>
-                                        <Button text='Login' class="btn-outline-info" url="/login"></Button>
+                                        <Button text="Login" className="btn-outline-info" url="/login" />
                                         &nbsp;
-                                        <Button text='Register' class="btn-info" url="/register"></Button>
+                                        <Button text="Register" className="btn-info" url="/register" />
                                     </>
                                 )}
                             </li>

@@ -136,7 +136,7 @@ class BookmarkPostAPIView(APIView):
 
 ######################## Author Dashboard APIs ########################
 class DashboardStats(generics.ListAPIView):
-    serializer_class =  AuthorStats
+    serializer_class = AuthorStats
     permission_classes = [AllowAny]
 
     def get_queryset(self):
@@ -146,7 +146,7 @@ class DashboardStats(generics.ListAPIView):
         views = Post.objects.filter(user=user).aggregate(view=Sum("view"))['view']
         posts = Post.objects.filter(user=user).count()
         likes = Post.objects.filter(user=user).aggregate(total_likes=Sum("likes"))['total_likes']
-        bookmarks = Bookmark.objects.all().count()
+        bookmarks = Bookmark.objects.filter(user=user).count()
 
         return [{
             "views": views,
@@ -159,6 +159,7 @@ class DashboardStats(generics.ListAPIView):
         querset = self.get_queryset()
         serializer = self.get_serializer(querset, many=True)
         return Response(serializer.data)
+
 
 class DashboardPostLists(generics.ListAPIView):
     serializer_class =  PostSerializer
@@ -289,3 +290,5 @@ class DashboardPostEditAPIView(generics.RetrieveUpdateDestroyAPIView):
         post_instance.save()
 
         return Response({"message": "Post Updated Successfully"}, status=status.HTTP_200_OK)
+    
+
