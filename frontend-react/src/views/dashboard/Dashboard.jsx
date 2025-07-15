@@ -12,6 +12,7 @@ const Dashboard = () => {
     const [noti, setNoti] = useState([]);
 
     const userId = useUserData()?.user_id;
+    console.log(userId);
 
     const fetchDashboardData = async () => {
         const stats_res = await axiosInstance.get(`author/dashboard/stats/${userId}/`);
@@ -20,7 +21,7 @@ const Dashboard = () => {
         const post_res = await axiosInstance.get(`author/dashboard/post-list/${userId}/`);
         setPosts(post_res.data);
 
-        const comment_res = await axiosInstance.get(`author/dashboard/comment-list/`);
+        const comment_res = await axiosInstance.get(`author/dashboard/comment-list/?user_id=${userId}`);
         setComments(comment_res.data);
 
         const noti_res = await axiosInstance.get(`author/dashboard/noti-list/${userId}/`);
@@ -114,7 +115,7 @@ const Dashboard = () => {
                                     <div className="row">
                                         {posts?.map((p, index) => (
                                             <>
-                                                <div key={index}  className="col-12">
+                                                <div  key={p.id}  className="col-12">
                                                     <div className="d-flex position-relative">
                                                         <img className="w-60 rounded" src={p.image} style={{ width: "100px", height: "110px", objectFit: "cover", borderRadius: "10px" }} alt="product" />
                                                         <div className="ms-3">
@@ -159,7 +160,7 @@ const Dashboard = () => {
                                     <div className="row">
                                         {comments?.slice(0, 3).map((c, index) => (
                                             <>
-                                                <div key={index}  className="col-12">
+                                                <div key={c.id}  className="col-12">
                                                     <div className="d-flex align-items-center position-relative">
                                                         <div className="avatar avatar-lg flex-shrink-0">
                                                             <img className="avatar-img" src="https://as1.ftcdn.net/v2/jpg/03/53/11/00/1000_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} alt="avatar" />
@@ -202,7 +203,7 @@ const Dashboard = () => {
                                         <div className="row">
                                             {noti?.slice(0, 3)?.map((n, index) => (
                                                 <>
-                                                    <div key={index} className="col-12">
+                                                    <div key={n.id} className="col-12">
                                                         <div className="d-flex justify-content-between position-relative">
                                                             <div className="d-sm-flex">
                                                                 <div className="icon-lg bg-opacity-15 rounded-2 flex-shrink-0">{n.type === "Like" && <i className="fas fa-thumbs-up text-primary fs-5" />}</div>
@@ -210,7 +211,7 @@ const Dashboard = () => {
                                                                 <div className="icon-lg bg-opacity-15 rounded-2 flex-shrink-0">{n.type === "Bookmark" && <i className="fas fa-bookmark text-danger fs-5" />}</div>
                                                                 <div className="ms-0 ms-sm-3 mt-2 mt-sm-0">
                                                                     <h6 className="mb-0">{n.type}</h6>
-                                                                    <p className="mb-0">
+                                                                    <div className="mb-0">
                                                                         {n.type === "Like" && (
                                                                             <p>
                                                                                 Someone liked your post <b>{n.post?.title?.slice(0, 30) + "..."}</b>
@@ -226,7 +227,7 @@ const Dashboard = () => {
                                                                                 Someone bookmarked your post <b>{n.post?.title?.slice(0, 30) + "..."}</b>
                                                                             </p>
                                                                         )}
-                                                                    </p>
+                                                                    </div>
                                                                     <span className="small">5 min ago</span>
                                                                     <br />
                                                                     <button onClick={() => handleMarkNotiAsSeen(n.id)} className="btn btn-secondary mt-2">
@@ -292,7 +293,7 @@ const Dashboard = () => {
                                                 {posts?.map((p, index) => (
                                                     <tr>
                                                         <td>
-                                                            <h6 key={index} className="mt-2 mt-md-0 mb-0 ">
+                                                            <h6 key={p.id} className="mt-2 mt-md-0 mb-0 ">
                                                                 <a href="#" className="text-light text-decoration-none">
                                                                     {p?.title}
                                                                 </a>

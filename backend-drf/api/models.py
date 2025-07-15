@@ -23,6 +23,7 @@ class Category(models.Model):
     def post_count(self):
         return Post.objects.filter(category=self).count()
 
+
 class Post(models.Model):
     STATUS = ( 
         ("Active", "Active"), 

@@ -59,7 +59,8 @@ function Category() {
                                         <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
                                             <li>
                                                 <a href="#" className="text-dark text-decoration-none">
-                                                    <i className="fas fa-user"></i> {p?.profile?.full_name}
+                                                     <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={p?.profile?.image}alt="avatar" />
+                                                    <span className="fw-bold">{p.profile?.full_name}</span>
                                                 </a>
                                             </li>
                                         

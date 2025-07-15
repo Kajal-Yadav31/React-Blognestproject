@@ -6,6 +6,8 @@ from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from django.db.models import Count
+
 
 # Custom Imports
 from .serializers import *
@@ -144,7 +146,7 @@ class DashboardStats(generics.ListAPIView):
 
         views = Post.objects.filter(user=user).aggregate(view=Sum("view"))['view']
         posts = Post.objects.filter(user=user).count()
-        likes = Post.objects.filter(user=user).aggregate(total_likes=Sum("likes"))['total_likes']
+        likes = Post.objects.filter(user=user).annotate(likes_count=Count('likes')).aggregate(total_likes=Sum('likes_count'))['total_likes'] or 0
         bookmarks = Bookmark.objects.filter(user=user).count()
 
         return [{
@@ -175,7 +177,8 @@ class DashboardCommentLists(generics.ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        return Comment.objects.all()
+        user_id = self.request.query_params.get("user_id")
+        return Comment.objects.filter(post__user__id=user_id).order_by('-id')
 
 class DashboardNotificationLists(generics.ListAPIView):
     serializer_class =  NotificationSerializer
