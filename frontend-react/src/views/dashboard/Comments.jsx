@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from '../../utils/axiosInstance'
+import useUserData from "../../utils/useUserData";
 import Toast from "../../utils/Toast";
 
 function Comments() {
     const [comments, setComments] = useState([]);
     const [reply, setReply] = useState("");
 
+    const userId = useUserData()?.user_id;
+    console.log(userId);
+
     const fetchComment = async () => {
-        const response = await axiosInstance.get(`author/dashboard/comment-list/`);
+        const response = await axiosInstance.get(`author/dashboard/comment-list/?user_id=${userId}`);
         setComments(response.data);
     };
 

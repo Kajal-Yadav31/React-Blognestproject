@@ -21,7 +21,7 @@ import Posts from "./views/dashboard/Posts";
 import AddPost from "./views/dashboard/AddPost";
 import EditPost from "./views/dashboard/EditPost";
 import Comments from "./views/dashboard/Comments";
-import Notifications from "./views/dashboard/Notifications";
+import Bookmarks from "./views/dashboard/Bookmarks";
 import Profile from "./views/dashboard/Profile";
 
 // import AuthProvider from '../src/utils./AuthProvider'
@@ -58,7 +58,7 @@ function App() {
         <Route path="/add-post/" element={<AddPost />} />
         <Route path="/edit-post/:id/" element={<EditPost />} />
         <Route path="/comments/" element={<Comments />} />
-        <Route path="/notifications/" element={<Notifications />} />
+        <Route path="/bookmarks/" element={<Bookmarks />} />
         <Route path="/profile/" element={<Profile />} />
 
       </Routes>

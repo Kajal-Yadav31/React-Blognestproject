@@ -70,14 +70,9 @@ class LikePostAPIView(APIView):
             # If post hasn't been liked, like the post by adding user to set of poeple who have liked the post
             post.likes.add(user)
             
-            # Create Notification for Author
-            Notification.objects.create(
-                user=post.user,
-                post=post,
-                type="Like",
-            )
             return Response({"message": "Post Liked"}, status=status.HTTP_201_CREATED)
         
+
 class PostCommentAPIView(APIView):
     def post(self, request):
         # Get data from request.data (frontend)
@@ -94,13 +89,6 @@ class PostCommentAPIView(APIView):
             name=name,
             email=email,
             comment=comment,
-        )
-
-        # Notification
-        Notification.objects.create(
-            user=post.user,
-            post=post,
-            type="Comment",
         )
 
         # Return response back to the frontend
@@ -126,14 +114,9 @@ class BookmarkPostAPIView(APIView):
                 post=post
             )
 
-            # Notification
-            Notification.objects.create(
-                user=post.user,
-                post=post,
-                type="Bookmark",
-            )
             return Response({"message": "Post Bookmarked"}, status=status.HTTP_201_CREATED)
 
+    
 
 ######################## Author Dashboard APIs ########################
 class DashboardStats(generics.ListAPIView):
@@ -180,26 +163,15 @@ class DashboardCommentLists(generics.ListAPIView):
         user_id = self.request.query_params.get("user_id")
         return Comment.objects.filter(post__user__id=user_id).order_by('-id')
 
-class DashboardNotificationLists(generics.ListAPIView):
-    serializer_class =  NotificationSerializer
-    permission_classes = [AllowAny]
+
+
+class DashboardBookmarkLists(generics.ListAPIView):
+    serializer_class = BookmarkSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        user_id = self.kwargs['user_id']
-        user = User.objects.get(id=user_id)
+        return Bookmark.objects.filter(user=self.request.user)
 
-        return Notification.objects.filter(seen=False, user=user)
-
-class DashboardMarkNotiSeenAPIView(APIView):
-    
-    def post(self, request):
-        noti_id = request.data['noti_id']
-        noti = Notification.objects.get(id=noti_id)
-
-        noti.seen = True
-        noti.save()
-
-        return Response({"message": "Noti Marked As Seen"}, status=status.HTTP_200_OK)
 
 class DashboardPostCommentAPIView(APIView):
     

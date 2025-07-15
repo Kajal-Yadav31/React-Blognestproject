@@ -9,7 +9,7 @@ const Dashboard = () => {
     const [stats, setStats] = useState([]);
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
-    const [noti, setNoti] = useState([]);
+    const [bookmarks, setBookmarks] = useState([]);
 
     const userId = useUserData()?.user_id;
     console.log(userId);
@@ -24,20 +24,14 @@ const Dashboard = () => {
         const comment_res = await axiosInstance.get(`author/dashboard/comment-list/?user_id=${userId}`);
         setComments(comment_res.data);
 
-        const noti_res = await axiosInstance.get(`author/dashboard/noti-list/${userId}/`);
-        setNoti(noti_res.data);
+        const book_res = await axiosInstance.get(`author/dashboard/bookmark-list/`);
+        setBookmarks(book_res.data);
     };
 
     useEffect(() => {
         fetchDashboardData();
     }, []);
 
-    const handleMarkNotiAsSeen = async (notiId) => {
-        const response = await axiosInstance.post("author/dashboard/noti-mark-seen/", { noti_id: notiId });
-        console.log(response.data);
-        fetchDashboardData();
-        Toast("success", "Notification Seen", "");
-    };
 
     return (
         <>
@@ -119,10 +113,9 @@ const Dashboard = () => {
                                                     <div className="d-flex position-relative">
                                                         <img className="w-60 rounded" src={p.image} style={{ width: "100px", height: "110px", objectFit: "cover", borderRadius: "10px" }} alt="product" />
                                                         <div className="ms-3">
-                                                            <a href="#" className="h6 stretched-link text-decoration-none text-dark">
+                                                            <Link to={`/${p.slug}/`} className="h6 stretched-link text-decoration-none text-dark"> 
                                                                 {p.title}
-                                                            </a>
-                                                           
+                                                                                                                       
                                                             <p className="small mb-0">
                                                                 <i className="fas fa-eye me-2"></i>
                                                                 {p.view} Views
@@ -131,6 +124,7 @@ const Dashboard = () => {
                                                                 <i className="fas fa-thumbs-up me-2"></i>
                                                                 {p.likes?.length} Likes
                                                             </p>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,61 +185,46 @@ const Dashboard = () => {
                         <div className="col-md-6 col-xxl-4">
                             <div className="card border h-100">
                                 <div className="card-header border-bottom d-flex justify-content-between align-items-center  p-3">
-                                    <h5 className="card-header-title mb-0">Notifications</h5>
+                                    <h5 className="card-header-title mb-0">Bookmarks ({stats.bookmarks})</h5>
                                     <div className="dropdown text-end">
                                         <a href="#" className="btn border-0 p-0 mb-0" role="button" id="dropdownShare3" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="fas fa-bell text-warning fa-fw" />
+                                            <i className="bi bi-tag" />
                                         </a>
                                     </div>
                                 </div>
                                 <div className="card-body p-3">
                                     <div className="custom-scrollbar h-350">
                                         <div className="row">
-                                            {noti?.slice(0, 3)?.map((n, index) => (
+                                            {bookmarks?.slice(0, 3)?.map((b, index) => (
                                                 <>
-                                                    <div key={n.id} className="col-12">
-                                                        <div className="d-flex justify-content-between position-relative">
-                                                            <div className="d-sm-flex">
-                                                                <div className="icon-lg bg-opacity-15 rounded-2 flex-shrink-0">{n.type === "Like" && <i className="fas fa-thumbs-up text-primary fs-5" />}</div>
-                                                                <div className="icon-lg bg-opacity-15 rounded-2 flex-shrink-0">{n.type === "Comment" && <i className="bi bi-chat-left-quote-fill  text-success fs-5" />}</div>
-                                                                <div className="icon-lg bg-opacity-15 rounded-2 flex-shrink-0">{n.type === "Bookmark" && <i className="fas fa-bookmark text-danger fs-5" />}</div>
-                                                                <div className="ms-0 ms-sm-3 mt-2 mt-sm-0">
-                                                                    <h6 className="mb-0">{n.type}</h6>
-                                                                    <div className="mb-0">
-                                                                        {n.type === "Like" && (
-                                                                            <p>
-                                                                                Someone liked your post <b>{n.post?.title?.slice(0, 30) + "..."}</b>
-                                                                            </p>
-                                                                        )}
-                                                                        {n.type === "Comment" && (
-                                                                            <p>
-                                                                                You have a new comment on <b>{n.post?.title?.slice(0, 30) + "..."}</b>
-                                                                            </p>
-                                                                        )}
-                                                                        {n.type === "Bookmark" && (
-                                                                            <p>
-                                                                                Someone bookmarked your post <b>{n.post?.title?.slice(0, 30) + "..."}</b>
-                                                                            </p>
-                                                                        )}
-                                                                    </div>
-                                                                    <span className="small">5 min ago</span>
-                                                                    <br />
-                                                                    <button onClick={() => handleMarkNotiAsSeen(n.id)} className="btn btn-secondary mt-2">
-                                                                        <i className="fas fa-check-circle"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                    <div  key={b.id}  className="col-12">
+                                                    <div className="d-flex position-relative">
+                                                        <img className="w-60 rounded" src={b.post.image} style={{ width: "100px", height: "110px", objectFit: "cover", borderRadius: "10px" }} alt="product" />
+                                                        <div className="ms-3">
+                                                            <Link to={`/${b.post.slug}/`} className="h6 stretched-link text-decoration-none text-dark">                                                         
+                                                                {b.post.title}
+                                                           
+                                                            <p className="small mb-0">
+                                                                <i className="fas fa-eye me-2"></i>
+                                                                {b.post.view} Views
+                                                            </p>
+                                                            <p className="small mb-0">
+                                                                <i className="fas fa-thumbs-up me-2"></i>
+                                                                {b.post.likes?.length} Likes
+                                                            </p>
+                                                            </Link>
                                                         </div>
                                                     </div>
-                                                    <hr className="my-3" />
+                                                </div>
+                                                <hr className="my-3" />
                                                 </>
                                             ))}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-footer border-top text-center p-3">
-                                    <Link to="/notifications/" className="fw-bold text-decoration-none text-dark">
-                                        View all Notifications
+                                    <Link to="/bookmarks/" className="fw-bold text-decoration-none text-dark">
+                                        View all Bookmarks
                                     </Link>
                                 </div>
                             </div>

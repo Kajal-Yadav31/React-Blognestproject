@@ -69,8 +69,8 @@ const Header = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link className="dropdown-item" to="/notifications/">
-                                            <i className="fas fa-bell"></i> Notifications
+                                        <Link className="dropdown-item" to="/bookmarks/">
+                                            <i className="fas fa-tag"></i> Bookmarks  
                                         </Link>
                                     </li>
                                     <li>
@@ -83,7 +83,7 @@ const Header = () => {
                             <li className="nav-item">
                                 {isLoggedIn ? (
                                     <>
-                                        <Button text="Dashboard" className="btn-info" url="/dashboard" />
+                                        <Button text="Dashboard" className="btn-info" url="/dashboard" ></Button>
                                         &nbsp;
                                         <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
                                     </>

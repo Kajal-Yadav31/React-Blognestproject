@@ -43,6 +43,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
     comments = CommentSerializer(many=True)
     
     class Meta:
@@ -60,7 +61,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class BookmarkSerializer(serializers.ModelSerializer):
-    
+    post = PostSerializer()
+
     class Meta:
         model = Bookmark
         fields ="__all__"
@@ -74,19 +76,6 @@ class BookmarkSerializer(serializers.ModelSerializer):
         else:
             self.Meta.depth = 3
     
-class NotificationSerializer(serializers.ModelSerializer):  
-
-    class Meta:
-        model = Notification
-        fields = "__all__"
-
-    def __init__(self, *args, **kwargs):
-        super(NotificationSerializer, self).__init__(*args, **kwargs)
-        request = self.context.get('request')
-        if request and request.method == 'POST':
-            self.Meta.depth = 0
-        else:
-            self.Meta.depth = 3
 
 class AuthorStats(serializers.Serializer):
     views = serializers.IntegerField(default=0)

@@ -52,7 +52,7 @@ function Category() {
                                     </div>
                                     <div className="card-body px-3 pt-3">
                                         <h4 className="card-title">
-                                            <Link to={`${p.slug}`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
+                                            <Link to={`/${p.slug}/`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
                                                 {p.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
