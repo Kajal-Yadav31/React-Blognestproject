@@ -59,6 +59,17 @@ class PostSerializer(serializers.ModelSerializer):
             self.Meta.depth = 3
 
 
+class PublicProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    posts = PostSerializer(many=True, read_only=True, source='user.post_set')
+
+    class Meta:
+        model = Profile
+        fields = ['user', 'full_name', 'bio', 'about', 'image', 'posts']
+        
+
+
+
 
 class BookmarkSerializer(serializers.ModelSerializer):
     post = PostSerializer()

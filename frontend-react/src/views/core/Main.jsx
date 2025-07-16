@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axiosInstance from '../../utils/axiosInstance'
 import { Link } from "react-router-dom";
 import Toast from "../../utils/Toast";
-
+import useUserData from "../../utils/useUserData";
 
 const Main = () => {
     const [posts, setPosts] = useState([]);
@@ -88,26 +88,31 @@ const Main = () => {
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
                                         <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={p.image} alt={p.title} />
-                                    </div>
-                                    <div className="card-body px-3 pt-3">
-                                        <h4 className="card-title">
+
+                                        <h4 className="card-title m-2">
                                             <Link to={`/${p.slug}`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
                                                 {p.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
-                                        <button type="button" onClick={() => handleBookmarkPost(p.id)} style={{ border: "none", background: "none" }}>
-                                            <i className="fas fa-bookmark text-danger"></i>
-                                        </button>
-                                        <button onClick={() => handleLikePost(p.id)} style={{ border: "none", background: "none" }}>
-                                            <i className="fas fa-thumbs-up text-primary"></i>
-                                        </button>{" "}
-                                        {p.likes?.length}
+                                    </div>
+                                    <div className="card-body px-3 pt-3">
+                                        <Link onClick={handleBookmarkPost} className="text-danger me-2">
+                                            <i className="fas fa-bookmark"></i>
+                                        </Link>
+                                          &nbsp;
+                                        <Link onClick={handleLikePost} className="text-primary text-decoration-none me-2">
+                                            <i className="fas fa-thumbs-up">  </i>
+                                                <span className="text-dark fs-bold " >{p?.likes?.length}</span>
+                                        </Link>
+                                          
+                                        
                                         <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
                                             <li>
-                                                <a href="#" className="text-dark text-decoration-none" >
+                                                <Link to={`/profile/${p.profile.id}`} className="text-dark text-decoration-none" >
+                                              
                                                     <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={p?.profile?.image}alt="avatar" />
                                                     <span className="fw-bold">{p.profile?.full_name}</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             
                                             <li className="mt-2">
@@ -198,19 +203,21 @@ const Main = () => {
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
                                         <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={p.image} alt={p.title} />
-                                    </div>
-                                    <div className="card-body px-3 pt-3">
-                                        <h4 className="card-title">
+                                    
+                                        <h4 className="card-title m-2">
                                             <Link to={`${p.slug}`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
                                                 {p.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
+                                    </div>
+                                    <div className="card-body px-3 pt-3">
                                         <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
                                             <li>
-                                                <a href="#" className="text-dark text-decoration-none">
-                                                     <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={p?.profile?.image}alt="avatar" />
+                                                <Link to={`/profile/${p.profile.id}`} className="text-dark text-decoration-none" >
+                                              
+                                                    <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={p?.profile?.image}alt="avatar" />
                                                     <span className="fw-bold">{p.profile?.full_name}</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                             
                                             <li className="mt-2">
@@ -222,32 +229,7 @@ const Main = () => {
                             </div>
                         ))}
                     </div>
-                    {/* <nav className="d-flex mt-2">
-                        <ul className="pagination">
-                            <li className="">
-                                <button className="page-link text-dark fw-bold me-1 rounded">
-                                    <i className="fas fa-arrow-left me-2" />
-                                    Previous
-                                </button>
-                            </li>
-                        </ul>
-                        <ul className="pagination">
-                            <li key={1} className="active">
-                                <button className="page-link text-dark fw-bold rounded">1</button>
-                            </li>
-                            <li key={2} className="ms-1">
-                                <button className="page-link text-dark fw-bold rounded">2</button>
-                            </li>
-                        </ul>
-                        <ul className="pagination">
-                            <li className={`totalPages`}>
-                                <button className="page-link text-dark fw-bold ms-1 rounded">
-                                    Next
-                                    <i className="fas fa-arrow-right ms-3 " />
-                                </button>
-                            </li>
-                        </ul>
-                    </nav> */}
+                    
                 </div>
             </section>
 

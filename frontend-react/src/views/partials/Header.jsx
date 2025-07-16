@@ -1,12 +1,14 @@
-import {useContext} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import Button from '../auth/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../utils/AuthProvider'
 import Logo from '../../assets/image/logo.png'
+import axiosInstance from '../../utils/axiosInstance';
 
 
 const Header = () => {
   const {isLoggedIn, setIsLoggedIn} = useContext(AuthContext)
+  const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,6 +18,14 @@ const Header = () => {
     console.log('Logged out');
     navigate('/login')
   }
+
+  useEffect(() => {
+  const fetchProfile = async () => {
+    const res = await axiosInstance.get('/profile/me/');
+    setProfile(res.data);
+  };
+  fetchProfile();
+}, []);
 
   return (
     <>
@@ -81,20 +91,29 @@ const Header = () => {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                {isLoggedIn ? (
-                                    <>
-                                        <Button text="Dashboard" className="btn-info" url="/dashboard" ></Button>
-                                        &nbsp;
-                                        <button onClick={handleLogout} className="btn btn-outline-danger">Logout</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Button text="Login" className="btn-outline-info" url="/login" />
-                                        &nbsp;
-                                        <Button text="Register" className="btn-info" url="/register" />
-                                    </>
-                                )}
+                            {isLoggedIn ? (
+                                <div className="d-flex align-items-center gap-2">
+                                <Link to="/dashboard" className="btn btn-info d-flex align-items-center gap-2">
+                                    Dashboard
+                                    <img
+                                    src={profile?.image}
+                                    alt="Profile"
+                                    style={{ width: '30px', height: '30px', borderRadius: '50%' }}
+                                    />
+                                </Link>
+
+                                <button onClick={handleLogout} className="btn btn-outline-danger">
+                                    Logout
+                                </button>
+                                </div>
+                            ) : (
+                                <div className="d-flex align-items-center gap-2">
+                                <Button text="Login" className="btn-outline-info" url="/login" />
+                                <Button text="Register" className="btn-info" url="/register" />
+                                </div>
+                            )}
                             </li>
+
                         </ul>
                     </div>
                 </div>

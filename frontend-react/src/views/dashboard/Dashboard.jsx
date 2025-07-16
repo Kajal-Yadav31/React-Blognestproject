@@ -32,6 +32,19 @@ const Dashboard = () => {
         fetchDashboardData();
     }, []);
 
+    const handleDelete = async (postId) => {
+        if (window.confirm("Are you sure you want to delete this post?")) {
+            try {
+                const response = await axiosInstance.delete(`/post/delete/${postId}/`);
+                Toast("success", "Post deleted successfully!");
+                // Optional: Refresh posts
+                fetchPosts(); // your function to reload post list
+                } catch (error) {
+                Toast("error", "Failed to delete the post");
+            }
+        }
+    };
+
 
     return (
         <>
@@ -292,9 +305,9 @@ const Dashboard = () => {
                                                         </td>
                                                         <td>
                                                             <div className="d-flex gap-2">
-                                                                <a href="#" className="btn-round mb-0 btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
+                                                                <button className="btn-round mb-0 btn btn-danger" title="Delete"  onClick={() => handleDelete(p.id)}>
                                                                     <i className="bi bi-trash" />
-                                                                </a>
+                                                                </button>
                                                                 <Link to={`/edit-post/${p.id}/`}  className="btn btn-primary btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                                                                     <i className="bi bi-pencil-square" />
                                                                 </Link>

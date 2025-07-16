@@ -45,7 +45,7 @@ function Category() {
                 <div className="container">
                     <div className="row">
                         {postItems?.map((p, index) => (
-                            <div className="col-sm-6 col-lg-3" key={index}>
+                            <div className="col-sm-6 col-lg-3" key={p.id}>
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
                                         <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={p.image} alt={p.title} />
@@ -56,12 +56,14 @@ function Category() {
                                                 {p.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
+                                    </div>
+                                        <div className="card-body ">
                                         <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
                                             <li>
-                                                <a href="#" className="text-dark text-decoration-none">
+                                                <Link to={`/profile/${p.profile.id}`}className="text-dark text-decoration-none">
                                                      <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={p?.profile?.image}alt="avatar" />
                                                     <span className="fw-bold">{p.profile?.full_name}</span>
-                                                </a>
+                                                </Link>
                                             </li>
                                         
                                             <li className="mt-2">

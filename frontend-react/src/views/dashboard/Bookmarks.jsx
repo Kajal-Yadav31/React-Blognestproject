@@ -60,21 +60,25 @@ function Bookmarks() {
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
                                         <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={b?.post?.image} alt={b?.post?.title} />
-                                    </div>
-                                    <div className="card-body px-3 pt-3">
+                                 
+                                   </div>
+                                   <div className="card-body px-3 pt-3">
                                         <h4 className="card-title">
                                             <Link to={`/${b.post.slug}/`} className="btn-link text-reset stretched-link fw-bold text-decoration-none">
                                                 {b?.post?.title?.slice(0, 32) + "..."}
                                             </Link>
                                         </h4>
+                                    </div>
+                                          <div className="card-body px-3 pt-3">
                                         <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
                                             <li>
-                                                <a href="#" className="text-dark text-decoration-none">
-                                                     <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={b.post?.profile?.image}alt="avatar" />
+                                                <Link to={`/profile/${b.post.profile.id}`} className="text-dark text-decoration-none" >
+                                              
+                                                    <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={b?.post?.profile?.image}alt="avatar" />
                                                     <span className="fw-bold">{b?.post?.profile?.full_name}</span>
-                                                </a>
+                                                </Link>
                                             </li>
-                                        
+                                            
                                             <li className="mt-2">
                                                 <i className="fas fa-eye"></i> {b?.post?.view} Views
                                             </li>
@@ -117,70 +121,6 @@ function Bookmarks() {
             </section>
         </div>
 
-
-
-
-
-
-        // <>
-           
-        //     <section className="pt-5 pb-5">
-        //         <div className="container">
-        //             <div className="row mt-0 mt-md-4">
-        //                 <div className="col-lg-12 col-md-8 col-12">
-        //                     <div className="card mb-4">
-        //                         <div className="card-header d-lg-flex align-items-center justify-content-between">
-        //                             <div className="mb-3 mb-lg-0">
-        //                                 <h3 className="mb-0">Bookmarks</h3>
-        //                                 <span>Manage all your Bookmarks from here</span>
-        //                             </div>
-        //                         </div>
-        //                         {bookmarks.length === 0 ? (
-        //                         <p>No bookmarks found.</p>
-        //                         ) : (
-        //                         <div className="card-body flex">
-        //                             <ul className="list-group list-group-flush">
-
-        //                                 {bookmarks?.map((b, index) => (
-        //                                     <div className="col-sm-6 col-lg-3" key={b.id}>
-        //                                         <div className="card mb-4">
-        //                                             <div className="card-fold position-relative">
-        //                                                 <img className="card-img" style={{ width: "100%", height: "160px", objectFit: "cover" }} src={b.post.image} alt={b.post.title} />
-        //                                             </div>
-        //                                             <div className="card-body px- pt-3">
-        //                                                 <h5 className="card-title">{b.post.title}</h5>
-        //                                                 <ul className="mt-3 list-style-none" style={{ listStyle: "none" }}>
-        //                                                     <li>
-        //                                                         <a href="#" className="text-dark text-decoration-none">
-        //                                                             <img className="avatar-img m-1" style={{ width: "40px", height: "40px", objectFit: "cover", borderRadius: "50%" }} src={b?.post?.profile?.image}alt="avatar" />
-        //                                                             <span className="fw-bold">{b?.post?.profile?.full_name}</span>
-        //                                                         </a>
-        //                                                     </li>
-                                                           
-        //                                                 </ul>
-        //                                                 <div className="d-flex justify-content-between align-items-center mt-2">
-        //                                                     <Link to={`/${b.post.slug}/`} className="btn btn-info">
-        //                                                         View Post
-        //                                                     </Link>
-        //                                                     <li className="mt-2 list-unstyled mb-0">
-        //                                                         <i className="fas fa-eye"></i> {b.post.view} Views
-        //                                                     </li>
-        //                                                 </div>
-        //                                             </div>
-                                                     
-        //                                         </div>
-        //                                     </div>
-        //                 ))}
-        //                             </ul>
-        //                         </div>
-        //                         )}
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>               
-        //     </section>
-           
-        // </>
     );
 }
 

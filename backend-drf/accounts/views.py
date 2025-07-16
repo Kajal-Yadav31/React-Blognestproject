@@ -37,3 +37,9 @@ class ProfileView(generics.RetrieveUpdateAPIView):
             raise NotFound("Profile not found")
 
         return profile
+    
+class MyProfileAPIView(generics.RetrieveAPIView):
+    serializer_class = ProfileSerializer
+
+    def get_object(self):
+        return self.request.user.profile

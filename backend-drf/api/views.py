@@ -25,6 +25,7 @@ class CategoryListAPIView(generics.ListAPIView):
     def get_queryset(self):
         return Category.objects.all()
 
+
 class PostCategoryListAPIView(generics.ListAPIView):
     serializer_class =  PostSerializer
     permission_classes = [AllowAny]
@@ -34,13 +35,15 @@ class PostCategoryListAPIView(generics.ListAPIView):
         category = Category.objects.get(slug=category_slug)
         return Post.objects.filter(category=category, status="Active")
 
+
 class PostListAPIView(generics.ListAPIView):
     serializer_class =  PostSerializer
     permission_classes = [AllowAny]
 
     def get_queryset(self):
         return Post.objects.all()
-    
+
+
 class PostDetailAPIView(generics.RetrieveAPIView):
     serializer_class =  PostSerializer
     permission_classes = [AllowAny]
@@ -51,7 +54,24 @@ class PostDetailAPIView(generics.RetrieveAPIView):
         post.view += 1
         post.save()
         return post
-        
+
+
+class PublicProfileAPIView(generics.RetrieveAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = PublicProfileSerializer
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        return Profile.objects.select_related('user').prefetch_related('user__post_set')
+
+
+class PostDelete(generics.DestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
+    lookup_field = 'id'
+
+
 class LikePostAPIView(APIView):
     permission_classes = [IsAuthenticated] 
     
@@ -155,6 +175,7 @@ class DashboardPostLists(generics.ListAPIView):
 
         return Post.objects.filter(user=user).order_by("-id")
 
+
 class DashboardCommentLists(generics.ListAPIView):
     serializer_class =  CommentSerializer
     permission_classes = [AllowAny]
@@ -188,6 +209,7 @@ class DashboardPostCommentAPIView(APIView):
 
         return Response({"message": "Comment Response Sent"}, status=status.HTTP_201_CREATED)
     
+
 class DashboardPostCreateAPIView(generics.CreateAPIView):
     serializer_class =  PostSerializer
     permission_classes = [AllowAny]
@@ -224,6 +246,7 @@ class DashboardPostCreateAPIView(generics.CreateAPIView):
         )
 
         return Response({"message": "Post Created Successfully"}, status=status.HTTP_201_CREATED)
+
 
 class DashboardPostEditAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class =  PostSerializer

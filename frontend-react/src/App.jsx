@@ -28,6 +28,7 @@ import Profile from "./views/dashboard/Profile";
 import AuthProvider from './utils/AuthProvider'
 import PrivateRoute from './utils/PrivateRoute'
 import PublicRoute from './utils/PublicRoute'
+import ProfilePage from "./views/auth/ProfilePage";
 
 
 
@@ -51,6 +52,8 @@ function App() {
         <Route path='/register' element={<PublicRoute><Register></Register></PublicRoute>}></Route>
         <Route path='/login' element={<PublicRoute><Login></Login></PublicRoute>}></Route>
         <Route path='/dashboard' element={<PrivateRoute><Dashboard></Dashboard></PrivateRoute>}></Route>
+        <Route path="/profile/:userId" element={<ProfilePage/>} />
+
 
       {/* Dashboard */}
         <Route path="/dashboard/" element={<Dashboard />} />
