@@ -43,7 +43,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField()
     comments = CommentSerializer(many=True)
     
     class Meta:
@@ -57,6 +56,7 @@ class PostSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 3
+
 
 
 class PublicProfileSerializer(serializers.ModelSerializer):

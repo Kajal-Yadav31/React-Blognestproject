@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db.models import Count
+from django.core.exceptions import PermissionDenied
 
 
 # Custom Imports
@@ -70,6 +71,13 @@ class PostDelete(generics.DestroyAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticated]
     lookup_field = 'id'
+
+    def get_object(self):
+        post = super().get_object()
+        if post.user != self.request.user:
+            raise PermissionDenied("You cannot access another user's data")
+        return post
+    
 
 
 class LikePostAPIView(APIView):
@@ -141,7 +149,7 @@ class BookmarkPostAPIView(APIView):
 ######################## Author Dashboard APIs ########################
 class DashboardStats(generics.ListAPIView):
     serializer_class = AuthorStats
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user_id = self.kwargs['user_id']
@@ -195,14 +203,15 @@ class DashboardBookmarkLists(generics.ListAPIView):
 
 
 class DashboardPostCommentAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     
     def post(self, request):
         comment_id = request.data['comment_id']
         reply = request.data['reply']
 
-        print("comment_id =======", comment_id)
-        print("reply ===========", reply)
-
+        if comment.post.user != request.user:
+            raise PermissionDenied("You are not allowed to reply to comments on another user's post.")
+            
         comment = Comment.objects.get(id=comment_id)
         comment.reply = reply
         comment.save()

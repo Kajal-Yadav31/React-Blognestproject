@@ -97,7 +97,7 @@ function Posts() {
                                     <div className="row g-3 align-items-center justify-content-between mb-3">
                                         <div className="col-md-8">
                                             <form className="rounded position-relative">
-                                                <input onChange={(e) => handleSearch(e)} className="form-control pe-5 bg-transparent" type="search" placeholder="Search Articles" aria-label="Search" />
+                                                <input onChange={(e) => handleSearch(e)} className="form-control pe-5 bg-transparent text-light" type="search" placeholder="Search Articles" aria-label="Search" />
                                                 <button className="btn bg-transparent border-0 px-2 py-0 position-absolute top-50 end-0 translate-middle-y" type="submit">
                                                     <i className="fas fa-search fs-6 " />
                                                 </button>
@@ -105,7 +105,7 @@ function Posts() {
                                         </div>
                                         <div className="col-md-3">
                                             <form>
-                                                <select onChange={handleSortChange} className="form-select z-index-9 bg-transparent" aria-label=".form-select-sm">
+                                                <select onChange={handleSortChange} className="form-select z-index-9 bg-transparent text-light" aria-label=".form-select-sm">
                                                     <option value="">Sort by</option>
                                                     <option value={"Newest"}>Newest</option>
                                                     <option value={"Oldest"}>Oldest</option>

@@ -33,7 +33,7 @@ const Main = () => {
         fetchPopularPost();
     }, [posts]);
 
-    // Pagination
+    // Pagination for trending post
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(1);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,6 +42,17 @@ const Main = () => {
     const totalPages = Math.ceil(posts.length / itemsPerPage);
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
+
+    // Pagination for popular post
+    const popularItemsPerPage = 8;
+    const [popularCurrentPage, setPopularCurrentPage] = useState(1);
+    const indexOfLastPopular = popularCurrentPage * popularItemsPerPage;
+    const indexOfFirstPopular = indexOfLastPopular - popularItemsPerPage;
+    const popularItems = popularPosts.slice(indexOfFirstPopular, indexOfLastPopular);
+
+    const popularTotalPages = Math.ceil(popularPosts.length / popularItemsPerPage);
+    const popularPageNumbers = Array.from({ length: popularTotalPages }, (_, i) => i + 1);
+    
     const handleLikePost = async (postId) => {
         const jsonData = {
             user_id: useUserData()?.user_id,
@@ -198,7 +209,7 @@ const Main = () => {
             <section className="pt-4 pb-0">
                 <div className="container">
                     <div className="row">
-                        {popularPosts?.map((p, index) => (
+                        {popularItems?.map((p, index) => (
                             <div className="col-sm-6 col-lg-3" key={index}>
                                 <div className="card mb-4">
                                     <div className="card-fold position-relative">
@@ -229,7 +240,36 @@ const Main = () => {
                             </div>
                         ))}
                     </div>
-                    
+                    <nav className="d-flex mt-4">
+                    <ul className="pagination">
+                        <li className={`page-item ${popularCurrentPage === 1 ? "disabled" : ""}`}>
+                        <button className="page-link me-1" onClick={() => setPopularCurrentPage(popularCurrentPage - 1)}>
+                            <i className="ci-arrow-left me-2" />
+                            Previous
+                        </button>
+                        </li>
+                    </ul>
+
+                    <ul className="pagination">
+                        {popularPageNumbers.map((number) => (
+                        <li key={number} className={`page-item ${popularCurrentPage === number ? "active" : ""}`}>
+                            <button className="page-link" onClick={() => setPopularCurrentPage(number)}>
+                            {number}
+                            </button>
+                        </li>
+                        ))}
+                    </ul>
+
+                    <ul className="pagination">
+                        <li className={`page-item ${popularCurrentPage === popularTotalPages ? "disabled" : ""}`}>
+                        <button className="page-link ms-1" onClick={() => setPopularCurrentPage(popularCurrentPage + 1)}>
+                            Next
+                            <i className="ci-arrow-right ms-3" />
+                        </button>
+                        </li>
+                    </ul>
+                    </nav>
+                                        
                 </div>
             </section>
 

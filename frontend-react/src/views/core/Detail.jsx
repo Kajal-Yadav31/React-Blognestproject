@@ -110,11 +110,14 @@ function Detail() {
                             <div className="text-start text-lg-center mb-5" data-sticky="" data-margin-top={80} data-sticky-for={991}>
                                 <div className="position-relative">
                                     <div className="avatar avatar-xl">
+                                        <Link to={`/profile/${post?.profile?.id}`} className="text-dark text-decoration-none" >
                                         <img className="avatar-img" style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} src={post?.profile?.image}alt="avatar" />
-                                    </div>
-                                    <a href="#" className="h5 fw-bold text-light text-decoration-none mt-2 mb-0 d-block">
+                                    
+                                    <span className="h5 fw-bold text-light text-decoration-none mt-2 mb-0 d-block">
                                         {post.profile?.full_name}
-                                    </a>
+                                    </span>
+                                    </Link>
+                                    </div>
                                     <p>{post.profile?.bio}</p>
                                 </div>
 
@@ -122,9 +125,7 @@ function Detail() {
 
                                 <ul className="list-inline list-unstyled">
                                     
-                                    {/* <li className="list-inline-item d-lg-block my-lg-2 text-start">
-                                        <i className="fas fa-clock"></i> 5 min read
-                                    </li> */}
+                                 
                                     <li className="list-inline-item d-lg-block my-lg-2 text-start">
                                         <a href="#" className="text-body">
                                             <i className="fas fa-heart" />
@@ -170,18 +171,18 @@ function Detail() {
 
                             <hr />
                             <div className="d-flex py-4 text-light">
-                                <a href="#">
+                                <Link to={`/profile/${post?.profile?.id}`}>
                                     <div className="avatar avatar-xxl me-4">
                                         <img className="avatar-img rounded-circle" src={post?.profile?.image} style={{ width: "100px", height: "100px", objectFit: "cover", borderRadius: "50%" }} alt="avatar" />
                                     </div>
-                                </a>
+                                </Link>
                                 <div >
                                     <div className="d-sm-flex align-items-center justify-content-between">
                                         <div>
                                             <h4 className="m-0">
-                                                <a href="#" className=" text-decoration-none">
+                                                <span className=" text-decoration-none">
                                                     {post.profile?.full_name}
-                                                </a>
+                                                </span>
                                             </h4>
                                             <small>{post.profile?.bio}</small>
                                         </div>

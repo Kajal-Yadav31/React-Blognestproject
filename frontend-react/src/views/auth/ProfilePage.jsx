@@ -29,7 +29,7 @@ const ProfilePage = () => {
 
     return (
     <div className="container mt-5">
-      <h2 className="mb-4 text-light">Posts by <span className="text-primary">{profileData.full_name}</span></h2>
+      <h2 className="mb-4 text-light">All Posts by <span className="text-primary">{profileData.full_name}</span></h2>
       
       <div className="row">
         {/* Left Column (Posts) */}
@@ -75,41 +75,7 @@ const ProfilePage = () => {
     </div>
   );
 
-//     return (
-//         <div className="container mt-5">
-//         <div className="d-flex align-items-center mb-4">
-//             <img
-//             src={profileData.image}
-//             alt="Profile"
-//             className="rounded-circle"
-//             style={{ width: '100px', height: '100px' }}
-//             />
-//             <div className="ms-3">
-//             <h3>{profileData.user}</h3>
-//             <p>{profileData.bio}</p>
-            
-//             </div>
-//         </div>
 
-//         <h4>Posts by {profileData.user}</h4>
-//         <div className="row">
-//             {profileData.posts.map(post => (
-//             <div className="col-md-4 mb-4" key={post.id}>
-//                 <div className="card h-100">
-//                 <img src={post.image} className="card-img-top" alt={post.title} />
-//                 <div className="card-body">
-//                     <h5 className="card-title">{post.title}</h5>
-//                     <a href={`/${post.slug}/`} className="btn btn-info">Read More</a>
-//                 </div>
-//                 <div className="card-footer text-muted">
-//                     Views: {post.view}
-//                 </div>
-//                 </div>
-//             </div>
-//             ))}
-//         </div>
-//         </div>
-//   );
 };
 
 export default ProfilePage;

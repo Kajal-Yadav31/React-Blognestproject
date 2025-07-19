@@ -22,13 +22,10 @@ class CommentAdmin(admin.ModelAdmin):
 class BookmarkAdmin(admin.ModelAdmin):
     list_display = ["user","post"]
 
-class NotificationAdmin(admin.ModelAdmin):
-    list_display = ["user","post","type","seen",]
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(Notification, NotificationAdmin)
 admin.site.register(Bookmark, BookmarkAdmin)
