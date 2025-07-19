@@ -26,10 +26,10 @@ const Search = () => {
     }
   }, [searchTerm]);
 
-  
+
   return (
     <div className="container mt-5">
-      <h3>Search Results for: <span className="text-primary">"{searchTerm}"</span></h3>
+      <h3 className='text-light'>Search Results for: <span className="text-primary">"{searchTerm}"</span></h3>
       <div className="row mt-4">
         {results.length === 0 ? (
           <p>No posts found.</p>
