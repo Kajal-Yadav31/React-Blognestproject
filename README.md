@@ -106,14 +106,15 @@
 ---
 ## 📝Postman Link for api testing: 
 
-### Account API Endpoints
-https://.postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-dcf2e1b9-29e5-47d0-b495-29d839c48da5?action=share&creator=29592036
+### Account API Endpoints  
+[Click here to view Account API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-dcf2e1b9-29e5-47d0-b495-29d839c48da5?action=share&creator=29592036)
 
-### Blog Dashboard API Endpoints
-https://.postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-d3e9faf6-b724-4741-80c2-bbcd51a851f6?action=share&creator=29592036
+### Blog Dashboard API Endpoints  
+[Click here to view Blog Dashboard API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-d3e9faf6-b724-4741-80c2-bbcd51a851f6?action=share&creator=29592036)
 
-### Blog Post API Endpoints
-https://.postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-2fe4fe85-abb2-488d-97d9-f9bf447f44c3?action=share&creator=29592036
+### Blog Post API Endpoints  
+[Click here to view Blog Post API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-2fe4fe85-abb2-488d-97d9-f9bf447f44c3?action=share&creator=29592036)
+
 
 ## 🛠️ Technologies Used
 
