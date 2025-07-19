@@ -31,6 +31,8 @@ axiosInstance.interceptors.response.use(
     //Handle failed response
     async function(error){
         const originalRequest = error.config;
+
+        // JWT token refresher 
         if(error.response.status === 401 && !originalRequest.retry){
             originalRequest.retry = true;
             const refreshToken = localStorage.getItem('refreshToken')
