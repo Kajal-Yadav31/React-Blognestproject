@@ -8,6 +8,8 @@ from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.db.models import Count
 from django.core.exceptions import PermissionDenied
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
 
 
 # Custom Imports
@@ -143,8 +145,20 @@ class BookmarkPostAPIView(APIView):
             )
 
             return Response({"message": "Post Bookmarked"}, status=status.HTTP_201_CREATED)
+  
+        
+class PostSearchPagination(PageNumberPagination):
+    page_size = 10
 
-    
+
+class PostSearchAPIView(generics.ListAPIView):
+    queryset = Post.objects.filter(status="Active")
+    serializer_class = PostSerializer
+    filter_backends = [SearchFilter]
+    search_fields = ['title', 'description', 'tags', 'user__username']
+    pagination_class = PostSearchPagination  
+
+
 
 ######################## Author Dashboard APIs ########################
 class DashboardStats(generics.ListAPIView):

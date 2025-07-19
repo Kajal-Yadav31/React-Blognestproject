@@ -23,9 +23,17 @@ const Header = () => {
   const fetchProfile = async () => {
     const res = await axiosInstance.get('/profile/me/');
     setProfile(res.data);
-  };
+    };
   fetchProfile();
 }, []);
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        const query = e.target.search.value;
+        if (query.trim() !== ""){
+            navigate(`/search?q=${query}`)
+        }
+    }
 
   return (
     <>
@@ -42,11 +50,11 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                         <div className="nav mt-3 mt-lg-0 px-4 flex-nowrap align-items-center">
                             <div className="nav-item w-100">
-                                <form className="rounded position-relative">
-                                    <input className="form-control pe-5 border-4 text-info "  type="search" placeholder="Search Articles" aria-label="Search" />
-                                    <Link to={"/search/"} className="btn bg-transparent border-0 px-2 py-0 text-info position-absolute top-50 end-0 translate-middle-y" type="submit">
+                                <form className="rounded position-relative" onSubmit={handleSearchSubmit}>
+                                    <input name="search" className="form-control pe-5 border-4 text-info "  type="search" placeholder="Search Articles" aria-label="Search" />
+                                    <button className="btn bg-transparent border-0 px-2 py-0 text-info position-absolute top-50 end-0 translate-middle-y" type="submit">
                                         <i className="bi bi-search p-2 fs-5"> </i>
-                                    </Link>
+                                    </button>
                                 </form>
                             </div>
                         </div>

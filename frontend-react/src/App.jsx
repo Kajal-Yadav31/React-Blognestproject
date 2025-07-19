@@ -7,7 +7,7 @@ import Footer from "./views/partials/Footer";
 
 {/* Core */}
 import Detail from "./views/core/Detail";
-// import Search from "./views/core/Search";
+import Search from "./views/core/Search";
 import Category from "./views/core/Category";
 import Main  from "./views/core/Main";
 
@@ -46,7 +46,7 @@ function App() {
         <Route path='/' element={<Main></Main>}></Route>
         <Route path="/:slug" element={<Detail />} />
         <Route path="/category/:slug/" element={<Category />} />
-        {/* <Route path="/search/" element={<Search />} /> */}
+        <Route path="/search/" element={<Search />} />
 
       {/* Authentication */}    
         <Route path='/register' element={<PublicRoute><Register></Register></PublicRoute>}></Route>
