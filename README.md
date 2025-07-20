@@ -5,6 +5,11 @@
 **BlogNest** is a dynamic full-stack blogging platform built using **Django REST Framework** (backend) and **React.js** (frontend). It empowers users to create, explore, and interact with blog content seamlessly through an intuitive UI and robust API. BlogNest features modern authentication via JWT, user profile management, real-time interaction through comments and replies, and a personalized dashboard to track engagement — offering a social blogging experience similar to Medium.
 
 ---
+
+🧪 Explore complete API collection:
+https://www.postman.com/kajal-yadav/workspace/blognestproject-api/overview
+
+
 ## Screenshot of the project:
 
 ### Home Page :
@@ -104,17 +109,6 @@
 - Fully integrated with `react-router-dom` and DRF `SearchFilter`.
 
 ---
-## 📝Postman Link for api testing: 
-
-### Account API Endpoints  
-[Click here to view Account API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-dcf2e1b9-29e5-47d0-b495-29d839c48da5?action=share&creator=29592036)
-
-### Blog Dashboard API Endpoints  
-[Click here to view Blog Dashboard API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-d3e9faf6-b724-4741-80c2-bbcd51a851f6?action=share&creator=29592036)
-
-### Blog Post API Endpoints  
-[Click here to view Blog Post API Collection](https://postman.co/workspace/BlogAPI~19912888-618c-4e4c-8f86-03d4b914f97b/collection/29592036-2fe4fe85-abb2-488d-97d9-f9bf447f44c3?action=share&creator=29592036)
-
 
 ## 🛠️ Technologies Used
 
